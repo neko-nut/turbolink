@@ -1405,6 +1405,83 @@ message ADAS_strt_DrivingSoundInfo{
 
 }
 
+//******************************* P2P ***********************************//
+
+message ADAS_strt_P2PInfo {
+    ADAS_enum_P2PPopup p2p_popup; //p2p功能弹窗
+    ADAS_enum_NearbyParikingPopup nearby_parking_popup; 
+    uint32 P2PSt; //p2p状态机
+    /****
+    P2P_State_OFF= 0;        
+    P2P_State_PASSIVE= 1;        
+    P2P_State_STANDBY= 2;        
+    P2P_State_NORMAL= 3;
+    P2P_State_STANDWAIT= 4;
+    P2P_State_VERTICALOVERRIDE= 5;
+    P2P_State_OVERALLOVERRIDE= 6;
+    P2P_State_LATEMEXIT= 7;
+    P2P_State_MRM= 8;
+    P2P_State_FORBIDDEN= 10;
+    P2P_State_FAULT= 11;
+    P2P_State_PARKINGPROCESS= 12; 
+    ****/
+    uint32 P2PStReminder; //P2P功能提示   
+    /****
+     0=none
+     1=正在驶出园区
+     2=驶入外部道路
+     3=正在前往目标车位
+     4=正在泊入车位
+     5=泊车完成
+     6=功能已退出
+     7=已到达导航终点
+     8=终点车位被占，请自行泊入
+     9=正在前往导航终点
+    ****/ 
+}
+enum ADAS_enum_P2PPopup {          //P2P功能可用状态弹窗
+    ADAS_enum_P2PPopup_None= 0;
+    ADAS_enum_P2PPopup_Active= 1;
+}
+enum ADAS_enum_NearbyParikingPopup {          //就近泊车功能可用状态弹窗
+    ADAS_enum_NearbyParikingPopup_None= 0;
+    ADAS_enum_NearbyParikingPopup_Active= 1;
+}
+
+//******************************* VLM ***********************************//
+message Header {
+  // 时间戳-纳秒，当帧报文发送的系统时间
+  uint64 timestamp_ns = 1;
+
+  // 计数器
+  uint64 sequence_num  = 2;
+
+  // 数据帧，当数据有更新ID更新
+  uint64 frame_id = 3;
+}
+
+message CameraFrameInfo {  // 摄像头信息
+  uint64        camera_frame_timestamp = 1;  //        摄像头曝光时间戳
+}
+
+message VlmDisplay {
+  Header header = 1;      // Header
+  string vlm_string = 2;
+}
+
+message ImageData {
+  CameraFrameInfo camera_frame_timestamp = 1;      // Header
+  int32 width = 2;                                  // 图像宽
+  int32 height = 3;                                 // 图像高
+  int32 channel = 4;                                // 图像通道，默认为3
+  bytes img_string = 5;                            // 图像data
+}
+
+message PerceptionVlmDisplay {
+  VlmDisplay vlm_display = 1;      // Header
+  ImageData img_data = 2;
+}
+
 
 //*******************************智驾卡片***********************************//
 
