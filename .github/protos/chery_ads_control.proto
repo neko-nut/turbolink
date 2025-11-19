@@ -1329,7 +1329,6 @@ message ICC_Strt_ADASSettingInfo {
   uint32 DatauploadBtn    = 80; //一键数据回传使能      0x0: None;0x1: Trigger;0x2-0xFE: Reserved                         
 }
 
-// P2P
 enum ICC_enum_P2PActiveCmd {            //P2P激活请求
     ICC_enum_P2PActiveCmd_NONE= 0;      //无请求
     ICC_enum_P2PActiveCmd_ACTIVE= 1;    //激活请求
@@ -1340,7 +1339,6 @@ enum ICC_enum_NearbyParkingActiveCmd {            //就近泊车激活请求
     ICC_enum_NearbyParkingActiveCmd_ACTIVE= 1;    //激活请求
     ICC_enum_NearbyParkingActiveCmd_QUIT= 2;      //退出请求
 }
-
 //control数据message整合
 message Control_Info {
     icc_enum_parking_func_mod_req parking_func_mod_req = 1; //泊车子功能选择
@@ -1349,9 +1347,8 @@ message Control_Info {
     ICC_strt_ApaRpaFcnOperating apa_rpa_fcn_operating2 =4; //APARPA功能输入信息
     ICC_strt_HpaFcnOperating hpa_fcn_operating =5; //HPA功能输入信息
     ICC_Strt_ADASSettingInfo adas_setting_info = 6; //ADAS功能设置信息
-    // P2P
-    ICC_enum_P2PActiveCmd p2p_active_cmd = 7;
-    ICC_enum_NearbyParkingActiveCmd nearby_parking_active_cmd = 8;
+    ICC_enum_P2PActiveCmd p2p_active_cmd = 7; //P2P激活请求
+    ICC_enum_NearbyParkingActiveCmd nearby_parking_active_cmd = 8; //就近泊车激活请求
 }
 
 message Apa_State_Machine{
